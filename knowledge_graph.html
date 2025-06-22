@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "font": {"color": "black"}, "id": "Ebay", "label": "Ebay", "shape": "dot", "title": "Ebay"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "On", "label": "On", "shape": "dot", "title": "On"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "In", "label": "In", "shape": "dot", "title": "In"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "For", "label": "For", "shape": "dot", "title": "For"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Rule", "label": "Rule", "shape": "dot", "title": "Rule"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Agreement", "label": "Agreement", "shape": "dot", "title": "Agreement"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Section", "label": "Section", "shape": "dot", "title": "Section"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "User", "label": "User", "shape": "dot", "title": "User"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Arbitration", "label": "Arbitration", "shape": "dot", "title": "Arbitration"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Disputes", "label": "Disputes", "shape": "dot", "title": "Disputes"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Dispute", "label": "Dispute", "shape": "dot", "title": "Dispute"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Disclaimer", "label": "Disclaimer", "shape": "dot", "title": "Disclaimer"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Except", "label": "Except", "shape": "dot", "title": "Except"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Arbitrator", "label": "Arbitrator", "shape": "dot", "title": "Arbitrator"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Use", "label": "Use", "shape": "dot", "title": "Use"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Control", "label": "Control", "shape": "dot", "title": "Control"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Under", "label": "Under", "shape": "dot", "title": "Under"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Us", "label": "Us", "shape": "dot", "title": "Us"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Variety", "label": "Variety", "shape": "dot", "title": "Variety"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Mechanisms", "label": "Mechanisms", "shape": "dot", "title": "Mechanisms"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Services", "label": "Services", "shape": "dot", "title": "Services"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "You", "label": "You", "shape": "dot", "title": "You"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Through", "label": "Through", "shape": "dot", "title": "Through"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Items", "label": "Items", "shape": "dot", "title": "Items"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Fee", "label": "Fee", "shape": "dot", "title": "Fee"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Item", "label": "Item", "shape": "dot", "title": "Item"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "With", "label": "With", "shape": "dot", "title": "With"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Order", "label": "Order", "shape": "dot", "title": "Order"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Inventory", "label": "Inventory", "shape": "dot", "title": "Inventory"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Against", "label": "Against", "shape": "dot", "title": "Against"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Regarding", "label": "Regarding", "shape": "dot", "title": "Regarding"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Due", "label": "Due", "shape": "dot", "title": "Due"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "To", "label": "To", "shape": "dot", "title": "To"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "From", "label": "From", "shape": "dot", "title": "From"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Out", "label": "Out", "shape": "dot", "title": "Out"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Duration", "label": "Duration", "shape": "dot", "title": "Duration"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Expression", "label": "Expression", "shape": "dot", "title": "Expression"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Rights", "label": "Rights", "shape": "dot", "title": "Rights"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Responsibility", "label": "Responsibility", "shape": "dot", "title": "Responsibility"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Practices", "label": "Practices", "shape": "dot", "title": "Practices"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Team", "label": "Team", "shape": "dot", "title": "Team"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Number", "label": "Number", "shape": "dot", "title": "Number"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Opinions", "label": "Opinions", "shape": "dot", "title": "Opinions"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Other", "label": "Other", "shape": "dot", "title": "Other"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Before", "label": "Before", "shape": "dot", "title": "Before"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Contents", "label": "Contents", "shape": "dot", "title": "Contents"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Replacements", "label": "Replacements", "shape": "dot", "title": "Replacements"}, {"color": "#97c2fc", "font": {"color": "black"}, "id": "Refund", "label": "Refund", "shape": "dot", "title": "Refund"}]);
+                  edges = new vis.DataSet([{"from": "Ebay", "label": "POST", "title": "POST\n\nNone", "to": "On"}, {"from": "Ebay", "label": "SET", "title": "SET\n\nNone", "to": "In"}, {"from": "Ebay", "label": "SET", "title": "SET\n\nNone", "to": "For"}, {"from": "Ebay", "label": "SET", "title": "SET\n\nNone", "to": "Rule"}, {"from": "Ebay", "label": "READ", "title": "READ\n\nNone", "to": "Agreement"}, {"from": "Ebay", "label": "READ", "title": "READ\n\nNone", "to": "Section"}, {"from": "Ebay", "label": "GOVERN", "title": "GOVERN\n\nNone", "to": "User"}, {"from": "Ebay", "label": "GOVERN", "title": "GOVERN\n\nNone", "to": "Arbitration"}, {"from": "Ebay", "label": "RESOLVE", "title": "RESOLVE\n\nNone", "to": "Disputes"}, {"from": "Ebay", "label": "RESOLVE", "title": "RESOLVE\n\nNone", "to": "Dispute"}, {"from": "Ebay", "label": "SEE", "title": "SEE\n\nNone", "to": "Disclaimer"}, {"from": "Ebay", "label": "ARBITRATE", "title": "ARBITRATE\n\nNone", "to": "Except"}, {"from": "Ebay", "label": "REQUIRE", "title": "REQUIRE\n\nNone", "to": "Arbitrator"}, {"from": "Ebay", "label": "REQUIRE", "title": "REQUIRE\n\nNone", "to": "Use"}, {"from": "Ebay", "label": "HAVE", "title": "HAVE\n\nNone", "to": "Control"}, {"from": "Ebay", "label": "PERMIT", "title": "PERMIT\n\nNone", "to": "Under"}, {"from": "Ebay", "label": "PERMIT", "title": "PERMIT\n\nNone", "to": "Us"}, {"from": "Ebay", "label": "USE", "title": "USE\n\nNone", "to": "Variety"}, {"from": "Ebay", "label": "USE", "title": "USE\n\nNone", "to": "Mechanisms"}, {"from": "Ebay", "label": "USE", "title": "USE\n\nNone", "to": "Services"}, {"from": "Ebay", "label": "PROVIDE", "title": "PROVIDE\n\nNone", "to": "You"}, {"from": "Ebay", "label": "PROVIDE", "title": "PROVIDE\n\nNone", "to": "Through"}, {"from": "Ebay", "label": "SELL", "title": "SELL\n\nNone", "to": "Items"}, {"from": "Ebay", "label": "PAY", "title": "PAY\n\nNone", "to": "Fee"}, {"from": "Ebay", "label": "PURCHASE", "title": "PURCHASE\n\nNone", "to": "Item"}, {"from": "Ebay", "label": "ASSOCIATE", "title": "ASSOCIATE\n\nNone", "to": "With"}, {"from": "Ebay", "label": "CANCEL", "title": "CANCEL\n\nNone", "to": "Order"}, {"from": "Ebay", "label": "MAINTAIN", "title": "MAINTAIN\n\nNone", "to": "Inventory"}, {"from": "Ebay", "label": "WARRANT", "title": "WARRANT\n\nNone", "to": "Against"}, {"from": "Ebay", "label": "MAKE", "title": "MAKE\n\nNone", "to": "Regarding"}, {"from": "Ebay", "label": "MAKE", "title": "MAKE\n\nNone", "to": "Due"}, {"from": "Ebay", "label": "RELATE", "title": "RELATE\n\nNone", "to": "To"}, {"from": "Ebay", "label": "RECEIVE", "title": "RECEIVE\n\nNone", "to": "From"}, {"from": "Ebay", "label": "ARISE", "title": "ARISE\n\nNone", "to": "Out"}, {"from": "Ebay", "label": "GUARANTEE", "title": "GUARANTEE\n\nNone", "to": "Duration"}, {"from": "Ebay", "label": "REPRESENT", "title": "REPRESENT\n\nNone", "to": "Expression"}, {"from": "Ebay", "label": "ENFORCE", "title": "ENFORCE\n\nNone", "to": "Rights"}, {"from": "Ebay", "label": "TAKE", "title": "TAKE\n\nNone", "to": "Responsibility"}, {"from": "Ebay", "label": "MODIFY", "title": "MODIFY\n\nNone", "to": "Practices"}, {"from": "Ebay", "label": "NOTIFY", "title": "NOTIFY\n\nNone", "to": "Team"}, {"from": "Ebay", "label": "ANALYZE", "title": "ANALYZE\n\nNone", "to": "Number"}, {"from": "Ebay", "label": "POLL", "title": "POLL\n\nNone", "to": "Opinions"}, {"from": "Ebay", "label": "COLLECT", "title": "COLLECT\n\nNone", "to": "Other"}, {"from": "Ebay", "label": "OCCUR", "title": "OCCUR\n\nNone", "to": "Before"}, {"from": "Ebay", "label": "STORE", "title": "STORE\n\nNone", "to": "Contents"}, {"from": "Ebay", "label": "AUTOMATE", "title": "AUTOMATE\n\nNone", "to": "Replacements"}, {"from": "Ebay", "label": "ISSUE", "title": "ISSUE\n\nNone", "to": "Refund"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -2000,
+            "springConstant": 0.001,
+            "springLength": 200
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

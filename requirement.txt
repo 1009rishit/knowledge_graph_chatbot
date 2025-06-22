@@ -1,0 +1,8 @@
+streamlit==1.33.0
+spacy==3.7.4
+neo4j==5.17.0
+langchain-groq==0.1.2
+langchain-community==0.0.32
+pypdf==4.1.0
+python-dotenv==1.0.1
+en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.7.0/en_core_web_lg-3.7.0-py3-none-any.whl
