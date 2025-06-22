@@ -94,7 +94,7 @@ UI Features
 Screenshot
 
 https://github.com/1009rishit/knowledge_graph_chatbot/blob/ab8b35dbe0f066b5e219f51f80612479d54d05ee/Screenshot%202025-06-22%20161206.png
-![Screenshot 2025-06-22 161225](https://github.com/user-attachments/assets/303a0e8e-1810-438f-9150-81df09ffb299)
+https://github.com/1009rishit/knowledge_graph_chatbot/blob/647c06e67d5cfd98592efbddf9e43601c98ecdc0/Screenshot%202025-06-22%20161225.png
 
 
 🤖 Model Details & Streaming
