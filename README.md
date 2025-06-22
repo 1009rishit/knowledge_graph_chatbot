@@ -1,6 +1,11 @@
 HERE IS THE SCREEN RECORDING OF THE WORKING OF THE CHATBOT
 https://github.com/1009rishit/knowledge_graph_chatbot/blob/main/Recording%202025-06-22%20155621.mp4
 
+
+HERE IS THE NOTEBOOK LINK OF THE CHATBOT
+https://colab.research.google.com/drive/1F6oKBrocmyMd6BDdHQ1n6xTxscNWW_tj?usp=sharing
+
+
 💻 eBay Policy Knowledge Graph Chatbot
 
 An intelligent policy assistant that leverages a Knowledge Graph built from the eBay User Agreement PDF. It uses Natural Language Processing (NLP), Neo4j for graph storage, and an LLM (LLaMA-3.3-70B via Groq API) to answer user questions grounded in policy facts.
